@@ -1,41 +1,79 @@
 <template>
-  <div>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <nuxt-link to="/" class="navbar-item" href="https://bulma.io">
-          <Logo class="logo" />
-        </nuxt-link>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <nuxt-link to="/" class="navbar-item">
+        <Logo class="logo" />
+      </nuxt-link>
+
+      <a
+        role="button"
+        class="navbar-burger burger"
+        aria-label="menu"
+        aria-expanded="false"
+        data-target="navbarBasicExample"
+        :class="{ 'is-active': showNav }"
+        @click="showNav = !showNav"
+      >
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div
+      id="navbarBasicExample"
+      class="navbar-menu"
+      :class="{ 'is-active': showNav }"
+    >
+      <div class="navbar-start">
+        <nuxt-link to="/" class="navbar-item"> Home </nuxt-link>
+
+        <nuxt-link to="/blog" class="navbar-item"> Blog </nuxt-link>
+
+        <nuxt-link to="/profile" class="navbar-item"> Profile </nuxt-link>
+
+        <nuxt-link to="/photos" class="navbar-item"> Photos </nuxt-link>
+
+        <nuxt-link to="/about" class="navbar-item"> About </nuxt-link>
       </div>
 
-      <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-start">
-          <nuxt-link to="/" class="navbar-item"> Home </nuxt-link>
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div v-if="loggedIn" class="buttons">
+            <button class="button is-danger" @click="logout">
+              <strong>Log Out</strong>
+            </button>
+          </div>
 
-          <nuxt-link to="/blog" class="navbar-item"> Blog </nuxt-link>
-
-          <nuxt-link to="/profile" class="navbar-item"> Profile </nuxt-link>
-
-          <nuxt-link to="/photos" class="navbar-item"> Photos </nuxt-link>
-
-          <nuxt-link to="/about" class="navbar-item"> About </nuxt-link>
-        </div>
-
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons">
-              <nuxt-link to="/login" class="button is-primary">
-                <strong>Login</strong>
-              </nuxt-link>
-            </div>
+          <div v-else class="buttons">
+            <nuxt-link to="/login" class="button is-primary">
+              <strong>Log In</strong>
+            </nuxt-link>
           </div>
         </div>
       </div>
-    </nav>
-  </div>
+    </div>
+  </nav>
 </template>
 
 <script>
-export default {}
+import { mapState } from 'vuex'
+export default {
+  data() {
+    return {
+      showNav: false,
+    }
+  },
+  methods: {
+    async logout() {
+      await this.$auth.logout()
+      this.$router.push('/login')
+    },
+  },
+  computed: {
+    ...mapState('auth', ['loggedIn']),
+  },
+}
 </script>
 
 <style scoped>

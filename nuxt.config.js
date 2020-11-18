@@ -1,4 +1,5 @@
 export default {
+  serverMiddleware: ['~/api/auth.js'],
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'nuxt-portfolio',
