@@ -15,14 +15,9 @@
 
           <nuxt-link to="/profile" class="navbar-item"> Profile </nuxt-link>
 
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link"> More </a>
+          <nuxt-link to="/photos" class="navbar-item"> Photos </nuxt-link>
 
-            <div class="navbar-dropdown">
-              <nuxt-link to="/about" class="navbar-item"> About </nuxt-link>
-              <nuxt-link to="/photos" class="navbar-item"> Jobs </nuxt-link>
-            </div>
-          </div>
+          <nuxt-link to="/about" class="navbar-item"> About </nuxt-link>
         </div>
 
         <div class="navbar-end">
